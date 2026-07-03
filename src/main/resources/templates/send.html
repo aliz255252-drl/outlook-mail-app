@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Compose - Public Mail App</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/}">Public Mail App</a>
+</header>
+
+<div class="container">
+    <h2>New message</h2>
+
+    <div th:if="${success}" class="success-message" style="color: green; margin-bottom: 15px;">
+        <span th:text="${success}"></span>
+    </div>
+    
+    <div th:if="${error}" class="error-message" style="color: red; margin-bottom: 15px;">
+        <span th:text="${error}"></span>
+    </div>
+
+    <form class="compose" th:action="@{/send}" th:object="${sendMailRequest}" method="post">
+        <div>
+            <label for="to">To (comma-separated)</label>
+            <input type="text" id="to" th:field="*{to}" placeholder="someone@example.com" required/>
+        </div>
+        <div>
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" th:field="*{subject}" required/>
+        </div>
+        <div>
+            <label for="body">Message</label>
+            <textarea id="body" th:field="*{body}" required></textarea>
+        </div>
+        <div>
+            <button type="submit" class="button">Send</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
